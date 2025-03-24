@@ -3,7 +3,7 @@ package locales_test
 import (
 	"testing"
 
-	"github.com/koneksahealth/x/pkg/locales"
+	"github.com/michaeldelorenzo/x/pkg/locales"
 	"github.com/stretchr/testify/require"
 	"golang.org/x/text/language"
 )

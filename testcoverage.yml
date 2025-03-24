@@ -4,7 +4,7 @@ profile: coverage.out
 
 # (optional) 
 # When specified reported file paths will not contain local prefix in the output
-local-prefix: "github.com/koneksahealth/x"
+local-prefix: "github.com/michaeldelorenzo/x"
 
 # Holds coverage thresholds percentages, values should be in range [0-100]
 threshold:

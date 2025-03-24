@@ -3,7 +3,7 @@ package phonecountries
 
 import (
 	"fmt"
-	"github.com/koneksahealth/x/pkg/utils/sequence"
+	"github.com/michaeldelorenzo/x/pkg/utils/sequence"
 	"github.com/pariz/gountries"
 	"reflect"
 	"sort"
@@ -12,10 +12,9 @@ import (
 var countriesQuery = gountries.New()
 
 // countryDisplayNameOverrides overrides the default country names to enable proper lookup and validation.
-// See https://koneksa-health.atlassian.net/browse/KH-5982
 var countryDisplayNameOverrides = map[string]string{
 	// mapping is:
-	// common name: Koneksa Preferred Name
+	// common name: Preferred Name
 	"Saint Helena":                     "Ascension",
 	"Saint Vincent and the Grenadines": "Saint Vincent Grenadines",
 	"British Virgin Islands":           "Virgin Islands, British",
@@ -32,14 +31,12 @@ var countryQueryNameOverrides = func() map[string]string {
 }()
 
 // additionalCountryCallingCodes some countries have additional calling country codes that are not included in the gountries package.
-// https://koneksa-health.atlassian.net/browse/KH-5982 included additional calling codes.
 var additionalCountryCallingCodes = map[string][]string{
 	"Curaçao":            {"599"},
 	"Dominican Republic": {"1809201"},
 	"Kazakhstan":         {"7"},
 }
 
-// allowedCountries is the list of supported/allowed countries specified in https://koneksa-health.atlassian.net/browse/KH-5982.
 var allowedCountries = []string{
 	"American Samoa",
 	"Anguilla",
@@ -170,7 +167,7 @@ func toCountryNameQuery(q string) string {
 	return q
 }
 
-// AllowedCountries returns the list of Koneksa allowable countries.
+// AllowedCountries returns the list of allowable countries.
 func AllowedCountries() ([]Country, error) {
 	var countries = make(map[string]Country)
 	var countryNames []string

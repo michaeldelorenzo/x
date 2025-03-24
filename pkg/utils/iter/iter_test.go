@@ -4,8 +4,8 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/koneksahealth/x/pkg/utils/iter"
-	"github.com/koneksahealth/x/pkg/utils/ordered"
+	"github.com/michaeldelorenzo/x/pkg/utils/iter"
+	"github.com/michaeldelorenzo/x/pkg/utils/ordered"
 	"github.com/stretchr/testify/require"
 )
 

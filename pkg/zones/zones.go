@@ -7,8 +7,8 @@ import (
 	"strings"
 	"time"
 
-	"github.com/koneksahealth/x/pkg/utils/ptr"
-	"github.com/koneksahealth/x/pkg/utils/sequence"
+	"github.com/michaeldelorenzo/x/pkg/utils/ptr"
+	"github.com/michaeldelorenzo/x/pkg/utils/sequence"
 )
 
 var ErrUnsupportedTimeZone = errors.New("provided time zone is not supported")

@@ -6,7 +6,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/koneksahealth/x/pkg/types/datetime"
+	"github.com/michaeldelorenzo/x/pkg/types/datetime"
 	"github.com/stretchr/testify/require"
 )
 

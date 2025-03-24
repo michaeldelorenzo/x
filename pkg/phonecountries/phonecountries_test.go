@@ -7,7 +7,7 @@ import (
 	"strconv"
 	"testing"
 
-	"github.com/koneksahealth/x/pkg/phonecountries"
+	"github.com/michaeldelorenzo/x/pkg/phonecountries"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 )
@@ -546,7 +546,6 @@ func TestAllowedCountries(t *testing.T) {
 }
 
 func TestAllowedCountriesMatchKH_5982(t *testing.T) {
-	// Countries and codes were listed on https://koneksa-health.atlassian.net/browse/KH-5982
 	ticketCountries := []struct {
 		Name        string
 		CallingCode string

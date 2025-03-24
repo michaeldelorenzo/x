@@ -1,4 +1,4 @@
-module github.com/koneksahealth/x
+module github.com/michaeldelorenzo/x
 
 go 1.20
 

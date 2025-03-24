@@ -6,7 +6,7 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/koneksahealth/x/pkg/utils/sequence"
+	"github.com/michaeldelorenzo/x/pkg/utils/sequence"
 	"golang.org/x/text/language"
 	"golang.org/x/text/language/display"
 )
