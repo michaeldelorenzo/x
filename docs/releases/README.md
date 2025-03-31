@@ -7,8 +7,6 @@ Releases will generate two assets:
 
 A prerelease can be triggered on any branch by [manually running](https://docs.github.com/en/free-pro-team@latest/actions/managing-workflow-runs/manually-running-a-workflow) the `release` workflow on a given branch.
 
-The `sqa-begin-validation` action will create a validation branch and an `rc` pre-release based on the conventional commits.
-
 A release will be triggered on any merge into `production`.
 
 | Conventional Commit Type | Description                                |
@@ -26,7 +24,7 @@ A release will be triggered on any merge into `production`.
 
 > NOTE: BREAKING-CHANGE is not a commit type on its own & must be used with another type. See below for example usage:
 
-> refactor(KH-2032)!: reorganize api routes
+> refactor(PROJ-2032)!: reorganize api routes
 >
 > \- reorganize api routes to make them more restful
 >

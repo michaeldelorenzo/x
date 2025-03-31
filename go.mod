@@ -1,14 +1,14 @@
 module github.com/michaeldelorenzo/x
 
-go 1.20
+go 1.24
 
-require golang.org/x/text v0.3.7
+require golang.org/x/text v0.23.0
 
 require (
-	github.com/pariz/gountries v0.1.5
-	github.com/stretchr/testify v1.8.0
-	go.mongodb.org/mongo-driver v1.11.3
-	golang.org/x/exp v0.0.0-20220706164943-b4a6d9510983
+	github.com/pariz/gountries v0.1.6
+	github.com/stretchr/testify v1.10.0
+	go.mongodb.org/mongo-driver v1.17.3
+	golang.org/x/exp v0.0.0-20250305212735-054e65f0b394
 )
 
 require (
