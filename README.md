@@ -1,9 +1,8 @@
 # X
 
-![Tests Status](https://github.com/michaeldelorenzo/x/actions/workflows/tests.yml/badge.svg)
-![Release Status](https://github.com/michaeldelorenzo/x/actions/workflows/release.yml/badge.svg)
-![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)(https://github.com/semantic-release/semantic-release)
-![Cov](https://github.com/michaeldelorenzo/continuous-delivery/raw/gh-pages/badges/x-coverage.svg?raw=true)(https://github.com/michaeldelorenzo/x/actions)
+[![Tests](https://github.com/michaeldelorenzo/x/actions/workflows/tests.yml/badge.svg)](https://github.com/michaeldelorenzo/x/actions/workflows/tests.yml/badge.svg)
+[![Release Status](https://github.com/michaeldelorenzo/x/actions/workflows/release.yml/badge.svg)](https://github.com/michaeldelorenzo/x/releases)
+[![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/semantic-release/semantic-release)
 
 Sub-repository of packages to be leveraged by other Go-based applications and services.
 
