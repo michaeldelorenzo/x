@@ -7,7 +7,7 @@ import (
 	"time"
 
 	"github.com/getsentry/sentry-go"
-	"github.com/michaeldelorenzo/x/pkg/instrumenting/xapm"
+	"github.com/michaeldelorenzo/x/pkg/instrumenting/xapm/types"
 )
 
 // Provider implements the xapm.Provider interface for Sentry
@@ -21,7 +21,7 @@ func NewProvider(hub *sentry.Hub) *Provider {
 }
 
 // StartTransaction creates a new Sentry transaction
-func (p *Provider) StartTransaction(name string) xapm.Transaction {
+func (p *Provider) StartTransaction(name string) types.Transaction {
 	ctx := context.Background()
 	span := sentry.StartSpan(ctx, "transaction", sentry.WithTransactionName(name))
 
@@ -47,8 +47,8 @@ func (p *Provider) Shutdown(timeout time.Duration) {
 }
 
 // Type returns the provider type
-func (p *Provider) Type() xapm.ProviderType {
-	return xapm.ProviderSentry
+func (p *Provider) Type() types.ProviderType {
+	return types.ProviderSentry
 }
 
 // Transaction wraps a Sentry span (which represents a transaction)
@@ -63,13 +63,13 @@ func (t *Transaction) End() {
 }
 
 // StartSegment begins a new timing segment
-func (t *Transaction) StartSegment(name string) xapm.Segment {
+func (t *Transaction) StartSegment(name string) types.Segment {
 	child := t.span.StartChild(name)
 	return &Segment{span: child}
 }
 
 // StartExternalSegment begins tracking an external HTTP call
-func (t *Transaction) StartExternalSegment(url string) xapm.Segment {
+func (t *Transaction) StartExternalSegment(url string) types.Segment {
 	child := t.span.StartChild("http.client")
 	child.Description = url
 	child.SetData("url", url)
@@ -77,7 +77,7 @@ func (t *Transaction) StartExternalSegment(url string) xapm.Segment {
 }
 
 // StartDBSegment begins tracking a database operation
-func (t *Transaction) StartDBSegment(params *xapm.DBSegParams) xapm.Segment {
+func (t *Transaction) StartDBSegment(params *types.DBSegParams) types.Segment {
 	op := fmt.Sprintf("db.%s", params.Operation)
 	child := t.span.StartChild(op)
 	child.Description = params.QueryString
@@ -101,7 +101,7 @@ func (t *Transaction) StartDBSegment(params *xapm.DBSegParams) xapm.Segment {
 }
 
 // StartPSQLSegment begins tracking a PostgreSQL operation
-func (t *Transaction) StartPSQLSegment(params *xapm.PSQLDBSegParams) xapm.Segment {
+func (t *Transaction) StartPSQLSegment(params *types.PSQLDBSegParams) types.Segment {
 	child := t.span.StartChild("db.query")
 	child.Description = params.QueryString
 
@@ -121,7 +121,7 @@ func (t *Transaction) StartPSQLSegment(params *xapm.PSQLDBSegParams) xapm.Segmen
 }
 
 // StartKafkaSegment begins tracking a Kafka message production
-func (t *Transaction) StartKafkaSegment(topicName string) xapm.Segment {
+func (t *Transaction) StartKafkaSegment(topicName string) types.Segment {
 	child := t.span.StartChild("message.publish")
 	child.Description = topicName
 

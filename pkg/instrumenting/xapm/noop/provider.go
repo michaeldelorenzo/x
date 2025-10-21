@@ -5,7 +5,7 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/michaeldelorenzo/x/pkg/instrumenting/xapm"
+	"github.com/michaeldelorenzo/x/pkg/instrumenting/xapm/types"
 )
 
 // Provider implements a no-op APM provider for testing or when APM is disabled
@@ -17,7 +17,7 @@ func NewProvider() *Provider {
 }
 
 // StartTransaction creates a no-op transaction
-func (p *Provider) StartTransaction(name string) xapm.Transaction {
+func (p *Provider) StartTransaction(name string) types.Transaction {
 	return &Transaction{}
 }
 
@@ -32,8 +32,8 @@ func (p *Provider) Shutdown(timeout time.Duration) {
 }
 
 // Type returns the provider type
-func (p *Provider) Type() xapm.ProviderType {
-	return xapm.ProviderNoop
+func (p *Provider) Type() types.ProviderType {
+	return types.ProviderNoop
 }
 
 // Transaction is a no-op transaction implementation
@@ -43,27 +43,27 @@ type Transaction struct{}
 func (t *Transaction) End() {}
 
 // StartSegment returns a no-op segment
-func (t *Transaction) StartSegment(name string) xapm.Segment {
+func (t *Transaction) StartSegment(name string) types.Segment {
 	return &Segment{}
 }
 
 // StartExternalSegment returns a no-op segment
-func (t *Transaction) StartExternalSegment(url string) xapm.Segment {
+func (t *Transaction) StartExternalSegment(url string) types.Segment {
 	return &Segment{}
 }
 
 // StartDBSegment returns a no-op segment
-func (t *Transaction) StartDBSegment(params *xapm.DBSegParams) xapm.Segment {
+func (t *Transaction) StartDBSegment(params *types.DBSegParams) types.Segment {
 	return &Segment{}
 }
 
 // StartPSQLSegment returns a no-op segment
-func (t *Transaction) StartPSQLSegment(params *xapm.PSQLDBSegParams) xapm.Segment {
+func (t *Transaction) StartPSQLSegment(params *types.PSQLDBSegParams) types.Segment {
 	return &Segment{}
 }
 
 // StartKafkaSegment returns a no-op segment
-func (t *Transaction) StartKafkaSegment(topicName string) xapm.Segment {
+func (t *Transaction) StartKafkaSegment(topicName string) types.Segment {
 	return &Segment{}
 }
 

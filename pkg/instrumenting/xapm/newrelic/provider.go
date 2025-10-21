@@ -5,7 +5,7 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/michaeldelorenzo/x/pkg/instrumenting/xapm"
+	"github.com/michaeldelorenzo/x/pkg/instrumenting/xapm/types"
 	"github.com/newrelic/go-agent/v3/newrelic"
 	"github.com/newrelic/go-agent/v3/newrelic/sqlparse"
 )
@@ -21,7 +21,7 @@ func NewProvider(app *newrelic.Application) *Provider {
 }
 
 // StartTransaction creates a new New Relic transaction
-func (p *Provider) StartTransaction(name string) xapm.Transaction {
+func (p *Provider) StartTransaction(name string) types.Transaction {
 	return &Transaction{
 		tx: p.app.StartTransaction(name),
 	}
@@ -38,8 +38,8 @@ func (p *Provider) Shutdown(timeout time.Duration) {
 }
 
 // Type returns the provider type
-func (p *Provider) Type() xapm.ProviderType {
-	return xapm.ProviderNewRelic
+func (p *Provider) Type() types.ProviderType {
+	return types.ProviderNewRelic
 }
 
 // Transaction wraps a New Relic transaction
@@ -53,7 +53,7 @@ func (t *Transaction) End() {
 }
 
 // StartSegment begins a new timing segment
-func (t *Transaction) StartSegment(name string) xapm.Segment {
+func (t *Transaction) StartSegment(name string) types.Segment {
 	return &Segment{
 		seg: &newrelic.Segment{
 			Name:      name,
@@ -63,7 +63,7 @@ func (t *Transaction) StartSegment(name string) xapm.Segment {
 }
 
 // StartExternalSegment begins tracking an external HTTP call
-func (t *Transaction) StartExternalSegment(url string) xapm.Segment {
+func (t *Transaction) StartExternalSegment(url string) types.Segment {
 	return &Segment{
 		seg: &newrelic.ExternalSegment{
 			StartTime: t.tx.StartSegmentNow(),
@@ -73,7 +73,7 @@ func (t *Transaction) StartExternalSegment(url string) xapm.Segment {
 }
 
 // StartDBSegment begins tracking a database operation
-func (t *Transaction) StartDBSegment(params *xapm.DBSegParams) xapm.Segment {
+func (t *Transaction) StartDBSegment(params *types.DBSegParams) types.Segment {
 	return &Segment{
 		seg: &newrelic.DatastoreSegment{
 			StartTime:          t.tx.StartSegmentNow(),
@@ -89,7 +89,7 @@ func (t *Transaction) StartDBSegment(params *xapm.DBSegParams) xapm.Segment {
 }
 
 // StartPSQLSegment begins tracking a PostgreSQL operation with query parsing
-func (t *Transaction) StartPSQLSegment(params *xapm.PSQLDBSegParams) xapm.Segment {
+func (t *Transaction) StartPSQLSegment(params *types.PSQLDBSegParams) types.Segment {
 	seg := &newrelic.DatastoreSegment{
 		Host:               params.Host,
 		DatabaseName:       params.DatabaseName,
@@ -107,7 +107,7 @@ func (t *Transaction) StartPSQLSegment(params *xapm.PSQLDBSegParams) xapm.Segmen
 }
 
 // StartKafkaSegment begins tracking a Kafka message production
-func (t *Transaction) StartKafkaSegment(topicName string) xapm.Segment {
+func (t *Transaction) StartKafkaSegment(topicName string) types.Segment {
 	return &Segment{
 		seg: &newrelic.MessageProducerSegment{
 			StartTime:       t.tx.StartSegmentNow(),
