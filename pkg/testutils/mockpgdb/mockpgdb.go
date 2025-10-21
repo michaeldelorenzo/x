@@ -4,7 +4,7 @@ import (
 	"context"
 	"database/sql"
 
-	"github.com/michaeldelorenzo/x/pkg/datastores/pg/db"
+	"github.com/michaeldelorenzo/x/v2/pkg/datastores/pg/db"
 
 	"github.com/jmoiron/sqlx"
 	"github.com/lib/pq"

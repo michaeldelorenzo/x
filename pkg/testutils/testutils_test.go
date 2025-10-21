@@ -4,8 +4,8 @@ package testutils_test
 import (
 	"testing"
 
-	"github.com/michaeldelorenzo/x/pkg/testutils"
-	"github.com/michaeldelorenzo/x/pkg/utils/ptr"
+	"github.com/michaeldelorenzo/x/v2/pkg/testutils"
+	"github.com/michaeldelorenzo/x/v2/pkg/utils/ptr"
 	"github.com/stretchr/testify/require"
 )
 

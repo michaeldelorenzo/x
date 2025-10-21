@@ -6,7 +6,7 @@ import (
 	"reflect"
 	"sort"
 
-	"github.com/michaeldelorenzo/x/pkg/utils/sequence"
+	"github.com/michaeldelorenzo/x/v2/pkg/utils/sequence"
 	"github.com/pariz/gountries"
 )
 

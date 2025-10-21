@@ -4,7 +4,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/michaeldelorenzo/x/pkg/zones"
+	"github.com/michaeldelorenzo/x/v2/pkg/zones"
 	"github.com/stretchr/testify/require"
 )
 

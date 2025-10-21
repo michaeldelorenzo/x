@@ -1,4 +1,4 @@
-module github.com/michaeldelorenzo/x
+module github.com/michaeldelorenzo/x/v2
 
 go 1.25
 

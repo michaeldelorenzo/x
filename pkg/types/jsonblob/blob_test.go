@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"testing"
 
-	"github.com/michaeldelorenzo/x/pkg/types/jsonblob"
+	"github.com/michaeldelorenzo/x/v2/pkg/types/jsonblob"
 	"github.com/stretchr/testify/require"
 	"go.mongodb.org/mongo-driver/bson"
 )

@@ -7,7 +7,7 @@ import (
 	"strconv"
 	"testing"
 
-	"github.com/michaeldelorenzo/x/pkg/phonecountries"
+	"github.com/michaeldelorenzo/x/v2/pkg/phonecountries"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 )
