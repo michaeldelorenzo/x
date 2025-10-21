@@ -1,3 +1,19 @@
+## [3.0.0](https://github.com/michaeldelorenzo/x/compare/v2.1.0...v3.0.0) (2025-10-21)
+
+### ⚠ BREAKING CHANGES
+
+* Users must update their imports:
+- Old: import "github.com/michaeldelorenzo/x/pkg/..."
+- New: import "github.com/michaeldelorenzo/x/v2/pkg/..."
+
+🤖 Generated with [Claude Code](https://claude.com/claude-code)
+
+Co-Authored-By: Claude <noreply@anthropic.com>
+
+### Miscellaneous Chores
+
+* Update module path to v2 ([e49d09b](https://github.com/michaeldelorenzo/x/commit/e49d09bbd85b6e8897e6ba3df29b8abb16580167))
+
 ## [2.1.0](https://github.com/michaeldelorenzo/x/compare/v2.0.0...v2.1.0) (2025-10-21)
 
 ### Features
