@@ -4,9 +4,9 @@ import (
 	"fmt"
 	"log"
 
-	"github.com/michaeldelorenzo/x/v3/pkg/instrumenting/xapm/newrelic"
-	"github.com/michaeldelorenzo/x/v3/pkg/instrumenting/xapm/noop"
-	"github.com/michaeldelorenzo/x/v3/pkg/instrumenting/xapm/sentry"
+	"github.com/michaeldelorenzo/x/pkg/instrumenting/xapm/newrelic"
+	"github.com/michaeldelorenzo/x/pkg/instrumenting/xapm/noop"
+	"github.com/michaeldelorenzo/x/pkg/instrumenting/xapm/sentry"
 	"go.uber.org/zap"
 )
 

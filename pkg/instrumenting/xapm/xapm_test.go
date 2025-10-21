@@ -6,8 +6,8 @@ import (
 	"net/http/httptest"
 	"testing"
 
-	"github.com/michaeldelorenzo/x/v3/pkg/instrumenting/xapm"
-	"github.com/michaeldelorenzo/x/v3/pkg/instrumenting/xapm/noop"
+	"github.com/michaeldelorenzo/x/pkg/instrumenting/xapm"
+	"github.com/michaeldelorenzo/x/pkg/instrumenting/xapm/noop"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 )

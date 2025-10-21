@@ -5,7 +5,7 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/michaeldelorenzo/x/v3/pkg/instrumenting/xapm/types"
+	"github.com/michaeldelorenzo/x/pkg/instrumenting/xapm/types"
 )
 
 // Provider implements a no-op APM provider for testing or when APM is disabled

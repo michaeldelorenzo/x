@@ -3,7 +3,7 @@ package middleware
 import (
 	"net/http"
 
-	"github.com/michaeldelorenzo/x/v3/pkg/instrumenting/xapm"
+	"github.com/michaeldelorenzo/x/pkg/instrumenting/xapm"
 )
 
 // Transaction is a HTTP middleware function which creates a new APM transaction for each request.

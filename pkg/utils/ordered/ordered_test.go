@@ -3,7 +3,7 @@ package ordered_test
 import (
 	"testing"
 
-	"github.com/michaeldelorenzo/x/v3/pkg/utils/ordered"
+	"github.com/michaeldelorenzo/x/pkg/utils/ordered"
 	"github.com/stretchr/testify/require"
 )
 

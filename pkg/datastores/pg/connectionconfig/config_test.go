@@ -3,7 +3,7 @@ package connectionconfig_test
 import (
 	"testing"
 
-	"github.com/michaeldelorenzo/x/v3/pkg/datastores/pg/connectionconfig"
+	"github.com/michaeldelorenzo/x/pkg/datastores/pg/connectionconfig"
 )
 
 func TestNewFromConfig(t *testing.T) {

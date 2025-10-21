@@ -3,7 +3,7 @@ package ptr_test
 import (
 	"testing"
 
-	"github.com/michaeldelorenzo/x/v3/pkg/utils/ptr"
+	"github.com/michaeldelorenzo/x/pkg/utils/ptr"
 	"github.com/stretchr/testify/require"
 )
 

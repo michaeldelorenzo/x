@@ -5,7 +5,7 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/michaeldelorenzo/x/v3/pkg/instrumenting/xapm/types"
+	"github.com/michaeldelorenzo/x/pkg/instrumenting/xapm/types"
 	"github.com/newrelic/go-agent/v3/newrelic"
 	"github.com/newrelic/go-agent/v3/newrelic/sqlparse"
 )

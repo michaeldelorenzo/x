@@ -5,8 +5,8 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/michaeldelorenzo/x/v3/pkg/types/jsonblob"
-	"github.com/michaeldelorenzo/x/v3/pkg/utils/maputils"
+	"github.com/michaeldelorenzo/x/pkg/types/jsonblob"
+	"github.com/michaeldelorenzo/x/pkg/utils/maputils"
 	"github.com/stretchr/testify/require"
 )
 

@@ -7,7 +7,7 @@ import (
 
 	"github.com/jmoiron/sqlx"
 	_ "github.com/lib/pq" // postgres driver
-	"github.com/michaeldelorenzo/x/v3/pkg/errors/validationerrors"
+	"github.com/michaeldelorenzo/x/pkg/errors/validationerrors"
 	"github.com/pkg/errors"
 )
 

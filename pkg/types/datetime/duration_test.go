@@ -6,7 +6,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/michaeldelorenzo/x/v3/pkg/types/datetime"
+	"github.com/michaeldelorenzo/x/pkg/types/datetime"
 	"github.com/stretchr/testify/require"
 )
 

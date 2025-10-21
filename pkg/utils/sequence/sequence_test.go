@@ -5,8 +5,8 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/michaeldelorenzo/x/v3/pkg/utils/ordered"
-	"github.com/michaeldelorenzo/x/v3/pkg/utils/sequence"
+	"github.com/michaeldelorenzo/x/pkg/utils/ordered"
+	"github.com/michaeldelorenzo/x/pkg/utils/sequence"
 	"github.com/stretchr/testify/require"
 )
 

@@ -7,7 +7,7 @@ import (
 	"time"
 
 	"github.com/getsentry/sentry-go"
-	"github.com/michaeldelorenzo/x/v3/pkg/instrumenting/xapm/types"
+	"github.com/michaeldelorenzo/x/pkg/instrumenting/xapm/types"
 )
 
 // Provider implements the xapm.Provider interface for Sentry

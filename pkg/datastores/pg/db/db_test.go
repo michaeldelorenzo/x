@@ -10,7 +10,7 @@ import (
 	"github.com/jmoiron/sqlx"
 	"github.com/stretchr/testify/assert"
 
-	"github.com/michaeldelorenzo/x/v3/pkg/datastores/pg/db"
+	"github.com/michaeldelorenzo/x/pkg/datastores/pg/db"
 )
 
 func Test_PgDB_Connect(t *testing.T) {
