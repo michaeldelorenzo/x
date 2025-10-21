@@ -3,10 +3,11 @@ package phonecountries
 
 import (
 	"fmt"
-	"github.com/michaeldelorenzo/x/pkg/utils/sequence"
-	"github.com/pariz/gountries"
 	"reflect"
 	"sort"
+
+	"github.com/michaeldelorenzo/x/pkg/utils/sequence"
+	"github.com/pariz/gountries"
 )
 
 var countriesQuery = gountries.New()
@@ -15,10 +16,10 @@ var countriesQuery = gountries.New()
 var countryDisplayNameOverrides = map[string]string{
 	// mapping is:
 	// common name: Preferred Name
-	"Saint Helena":                     "Ascension",
-	"Saint Vincent and the Grenadines": "Saint Vincent Grenadines",
-	"British Virgin Islands":           "Virgin Islands, British",
-	"United States Virgin Islands":     "Virgin Islands, U.S.",
+	//"Saint Helena":                     "Ascension",
+	//"Saint Vincent and the Grenadines": "Saint Vincent Grenadines",
+	//"British Virgin Islands":           "Virgin Islands, British",
+	//"United States Virgin Islands":     "Virgin Islands, U.S.",
 }
 
 // countryQueryNameOverrides inverts the countryDisplayNameOverrides to support querying.
@@ -32,83 +33,15 @@ var countryQueryNameOverrides = func() map[string]string {
 
 // additionalCountryCallingCodes some countries have additional calling country codes that are not included in the gountries package.
 var additionalCountryCallingCodes = map[string][]string{
-	"Curaçao":            {"599"},
-	"Dominican Republic": {"1809201"},
-	"Kazakhstan":         {"7"},
+	//"Curaçao":            {"599"},
+	//"Dominican Republic": {"1809201"},
+	//"Kazakhstan":         {"7"},
 }
 
 var allowedCountries = []string{
-	"American Samoa",
-	"Anguilla",
-	"Antigua and Barbuda",
-	"Argentina",
-	"Aruba",
-	"Ascension",
-	"Austria",
-	"Bahamas",
-	"Barbados",
-	"Belarus",
-	"Belize",
-	"Bermuda",
 	"Canada",
-	"Caribbean Netherlands",
-	"Cayman Islands",
-	"Chile",
-	"Costa Rica",
-	"Croatia",
-	"Cuba",
-	"Curaçao",
-	"Czech Republic",
-	"Dominica",
-	"Dominican Republic",
-	"El Salvador",
-	"Finland",
-	"France",
-	"Germany",
-	"Greece",
-	"Greenland",
-	"Grenada",
-	"Guadeloupe",
-	"Guam",
-	"Guatemala",
-	"Haiti",
-	"Honduras",
-	"Hungary",
-	"India",
-	"Israel",
-	"Italy",
-	"Jamaica",
-	"Japan",
-	"Kazakhstan",
-	"Latvia",
-	"Lithuania",
-	"Martinique",
-	"Mexico",
-	"Montserrat",
-	"Nicaragua",
-	"Northern Mariana Islands",
-	"Norway",
-	"Panama",
-	"Poland",
-	"Portugal",
 	"Puerto Rico",
-	"Romania",
-	"Russia",
-	"Saint Kitts and Nevis",
-	"Saint Lucia",
-	"Saint Pierre and Miquelon",
-	"Saint Vincent Grenadines",
-	"Spain",
-	"Sweden",
-	"Switzerland",
-	"Trinidad and Tobago",
-	"Turkey",
-	"Turks and Caicos Islands",
-	"Ukraine",
-	"United Kingdom",
 	"United States",
-	"Virgin Islands, British",
-	"Virgin Islands, U.S.",
 }
 
 // Country represents a country and its properties.
