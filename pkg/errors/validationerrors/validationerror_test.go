@@ -3,7 +3,7 @@ package validationerrors_test
 import (
 	"testing"
 
-	"github.com/michaeldelorenzo/x/v2/pkg/errors/validationerrors"
+	"github.com/michaeldelorenzo/x/v3/pkg/errors/validationerrors"
 )
 
 func TestValidationError(t *testing.T) {

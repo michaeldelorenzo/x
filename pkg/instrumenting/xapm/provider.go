@@ -3,7 +3,7 @@ package xapm
 // Re-export types from the types package to maintain backward compatibility
 // and provide a convenient import path for users
 
-import "github.com/michaeldelorenzo/x/v2/pkg/instrumenting/xapm/types"
+import "github.com/michaeldelorenzo/x/v3/pkg/instrumenting/xapm/types"
 
 type (
 	// ProviderType represents the APM provider type
