@@ -1,3 +1,9 @@
+## [2.1.0](https://github.com/michaeldelorenzo/x/compare/v2.0.0...v2.1.0) (2025-10-21)
+
+### Features
+
+* Add Sentry support to xapm package ([#2](https://github.com/michaeldelorenzo/x/issues/2)) ([09abbde](https://github.com/michaeldelorenzo/x/commit/09abbdee708b4b8709512ae738baa05c347f0645))
+
 ## [2.0.0](https://github.com/michaeldelorenzo/x/compare/v1.0.0...v2.0.0) (2025-10-21)
 
 ### ⚠ BREAKING CHANGES
