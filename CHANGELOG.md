@@ -1,3 +1,18 @@
+## [2.0.0](https://github.com/michaeldelorenzo/x/compare/v1.0.0...v2.0.0) (2025-10-21)
+
+### ⚠ BREAKING CHANGES
+
+* Upgrade to Go 1.25 and restructure codebase (#1)
+
+### Features
+
+* Upgrade to Go 1.25 and restructure codebase ([#1](https://github.com/michaeldelorenzo/x/issues/1)) ([0a730ac](https://github.com/michaeldelorenzo/x/commit/0a730acd20faecfef4c05f1d631ee8085e4e1fc3))
+
+### Bug Fixes
+
+* Add conventional-changelog-conventionalcommits dependency ([a89243d](https://github.com/michaeldelorenzo/x/commit/a89243d4cc8d7429a64e603b8478298b73715521))
+* Configure semantic-release to recognize conventionalcommits syntax ([ccd522e](https://github.com/michaeldelorenzo/x/commit/ccd522eead9ec9a4e16e1d2853d1c356aafee84b))
+
 # 1.0.0 (2025-03-31)
 
 
