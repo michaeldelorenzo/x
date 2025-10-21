@@ -17,12 +17,17 @@ func Transaction(next http.Handler) http.Handler {
 		tx := xapm.StartTransaction(name)
 		defer tx.End()
 
-		// add the txn into context for both the xapm and newrelic packages to use
+		// Set web request details
+		tx.SetWebRequestHTTP(r)
+
+		// Add the transaction into context for both the xapm package and provider-specific packages to use
 		ctx := xapm.CtxFromTx(r.Context(), tx)
 
-		req := r.WithContext(ctx)
-		tx.SetWebRequestHTTP(req)
+		// Wrap the response writer to capture response details
 		writer := tx.SetWebResponse(w)
+
+		// Create new request with updated context
+		req := r.WithContext(ctx)
 
 		next.ServeHTTP(writer, req)
 	})

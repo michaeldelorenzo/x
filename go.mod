@@ -6,6 +6,7 @@ require golang.org/x/text v0.30.0 // indirect
 
 require (
 	github.com/DATA-DOG/go-sqlmock v1.5.2
+	github.com/getsentry/sentry-go v0.30.0
 	github.com/jmoiron/sqlx v1.4.0
 	github.com/lib/pq v1.10.9
 	github.com/newrelic/go-agent/v3 v3.41.0
