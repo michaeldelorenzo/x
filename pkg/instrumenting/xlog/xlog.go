@@ -3,17 +3,34 @@ package xlog
 import (
 	"context"
 	"fmt"
+	"log"
+	"os"
 	"runtime"
 	"sync"
 
-	"github.com/newrelic/go-agent/v3/newrelic"
 	"go.uber.org/zap"
 	"go.uber.org/zap/zapcore"
+
+	"github.com/michaeldelorenzo/x/pkg/instrumenting/xapm"
+	"github.com/michaeldelorenzo/x/pkg/instrumenting/xlog/types"
 )
 
 // xlogContextKey is an internal key type
 // for storing loggers in context.Context
 type xlogContextKey string
+
+// Re-export types for convenience
+type (
+	ProviderType = types.ProviderType
+	LogProvider  = types.LogProvider
+)
+
+// Provider type constants
+const (
+	ProviderNewRelic = types.ProviderNewRelic
+	ProviderSentry   = types.ProviderSentry
+	ProviderNoop     = types.ProviderNoop
+)
 
 // CustomLevel is a backwards compatible type alias
 // extension for log levels not supported by zapcore.Level
@@ -50,6 +67,9 @@ func (e silentErr) Error() string {
 var (
 	// logger is our global logger
 	logger *zap.SugaredLogger
+
+	// hostname is the machine's hostname
+	hostname string
 
 	// LoggerKey avoids context name collisions due to its protected nature.
 	LoggerKey = xlogContextKey("xlog_logger")
@@ -156,9 +176,9 @@ func Err(logger *zap.SugaredLogger, title string, message interface{}) {
 }
 
 // EEWith is a convenience function which will log the provided
-// error data & fields, and if the provided transaction is not nil,
-// register the error data as a handled transaction error.
-func EEWith(logger *zap.SugaredLogger, title string, fields Fields, txn *newrelic.Transaction) {
+// error data & fields, and if a transaction is found in the context,
+// register the error data as a handled transaction error with the APM provider.
+func EEWith(logger *zap.SugaredLogger, title string, fields Fields, ctx context.Context) {
 	if logger == nil {
 		logger = L().With()
 	}
@@ -168,43 +188,45 @@ func EEWith(logger *zap.SugaredLogger, title string, fields Fields, txn *newreli
 	}
 	msg := errMsg(title)
 
-	// If a valid new relic transaction is provided, we will have new relic notice the error.
+	// Get transaction from context
+	txn := xapm.TxFromCtx(ctx)
 	if txn != nil {
 		fields["hostname"] = hostname
-		fields["trace"] = txn.GetLinkingMetadata().TraceID
-		fields["txn"] = txn.GetLinkingMetadata().EntityGUID
-		logger = logger.With("trace", txn.GetLinkingMetadata().TraceID, "txn", txn.GetLinkingMetadata().EntityGUID)
 
-		txn.NoticeError(newrelic.Error{
-			Message:    msg,
-			Class:      trace(),
-			Attributes: fields,
-			Stack:      newrelic.NewStackTrace(),
-		})
+		// Add fields as attributes to the transaction
+		for k, v := range fields {
+			txn.AddAttribute(k, v)
+		}
+
+		// Add error metadata
+		txn.AddAttribute("error_message", msg)
+		txn.AddAttribute("error_class", trace())
+
+		// Notice the error with the APM provider
+		txn.NoticeError(fmt.Errorf("%s", msg))
 	}
 
-	logger.Error(errMsg(title))
+	logger.Error(msg)
 }
 
 // EE is a convenience function which will log the provided
-// error, and if the provided transaction is not nil,
-// register the error data as a handled transaction error.
-func EE(logger *zap.SugaredLogger, error interface{}, txn *newrelic.Transaction) {
+// error, and if a transaction is found in the context,
+// register the error data as a handled transaction error with the APM provider.
+func EE(logger *zap.SugaredLogger, error interface{}, ctx context.Context) {
+	if logger == nil {
+		logger = L().With()
+	}
+
 	msg := errMsg(error)
 	logger.Error(msg)
 
-	// If a valid new relic transaction is provided, we will have new relic notice the error.
+	// Get transaction from context
+	txn := xapm.TxFromCtx(ctx)
 	if txn != nil {
-		txn.NoticeError(newrelic.Error{
-			Message: msg,
-			Class:   trace(),
-			Attributes: Fields{
-				"trace":    txn.GetLinkingMetadata().TraceID,
-				"txn":      txn.GetLinkingMetadata().EntityGUID,
-				"hostname": hostname,
-			},
-			Stack: newrelic.NewStackTrace(),
-		})
+		txn.AddAttribute("hostname", hostname)
+		txn.AddAttribute("error_message", msg)
+		txn.AddAttribute("error_class", trace())
+		txn.NoticeError(fmt.Errorf("%s", msg))
 	}
 }
 
@@ -223,8 +245,8 @@ func errMsg(err interface{}) string {
 
 // xlogCore is our internal implementation of zapcore.Core
 type xlogCore struct {
-	ReportableLevels []zapcore.Level
-	Async            bool
+	Provider LogProvider
+	Async    bool
 
 	m sync.Mutex
 	zapcore.LevelEnabler
@@ -257,8 +279,8 @@ func (c *xlogCore) Write(ent zapcore.Entry, fields []zapcore.Field) error {
 		return err
 	}
 
-	// Inject our upstream (new relic) writer
-	err = c.newRelicWriter(ent, buf.String())
+	// Inject our upstream provider writer
+	err = c.providerWriter(ent, buf.String())
 	buf.Free()
 
 	if err != nil {
@@ -294,11 +316,11 @@ func LevelThreshold(l zapcore.Level) []zapcore.Level {
 // This is necessary for context logging when calling With.
 func (c *xlogCore) clone() *xlogCore {
 	return &xlogCore{
-		Async:            c.Async,
-		ReportableLevels: c.ReportableLevels,
-		LevelEnabler:     c.LevelEnabler,
-		enc:              c.enc.Clone(),
-		out:              c.out,
+		Async:        c.Async,
+		Provider:     c.Provider,
+		LevelEnabler: c.LevelEnabler,
+		enc:          c.enc.Clone(),
+		out:          c.out,
 	}
 }
 
@@ -309,52 +331,35 @@ func addFields(enc zapcore.ObjectEncoder, fields []zapcore.Field) {
 	}
 }
 
-// sendEvent publishes the specified log entry to new relic.
-// An error will be returned
-func (c *xlogCore) sendEvent(e *zapcore.Entry, msg string) error {
+// sendToProvider publishes the specified log entry to the configured provider.
+func (c *xlogCore) sendToProvider(e *zapcore.Entry, msg string) error {
 	c.m.Lock()
 	defer c.m.Unlock()
 
-	return config.NRClient.request([]byte(msg))
+	return c.Provider.SendLog(*e, msg)
 }
 
-// Levels returns which levels are to be sent to New Relic
-func (c *xlogCore) Levels() []zapcore.Level {
-	if c.ReportableLevels == nil {
-		return AllLevels
+// providerWriter determines whether an event can and should
+// be sent upstream to the provider based on the configured level
+func (c *xlogCore) providerWriter(e zapcore.Entry, msg string) error {
+	if c.Provider == nil || !c.Provider.IsValid() {
+		return nil
 	}
 
-	return c.ReportableLevels
-}
-
-// isAcceptedLevel returns whether the specified level is valid
-func (c *xlogCore) isAcceptedLevel(level zapcore.Level) bool {
-	for _, lv := range c.Levels() {
-		if lv == level {
-			return true
-		}
-	}
-	return false
-}
-
-// newRelicWriter determines whether an event can and should
-// be sent upstream to new relic based on the provided level
-func (c *xlogCore) newRelicWriter(e zapcore.Entry, msg string) error {
-	// Check if we should send this entry to new relic based
-	// on the configured level
-	if !c.isAcceptedLevel(e.Level) {
+	// Check if we should send this entry based on the provider's configuration
+	if !c.Provider.ShouldSend(e.Level) {
 		return nil
 	}
 
 	// If we use Async upstream writing, we sacrifice having an error returned
-	// since channel usage seemed excessive here. The sendEvent function will output
+	// since channel usage seemed excessive here. The sendToProvider function will output
 	// the WARN to stdout since failing to write upstream is not considered a fatal error.
 	if c.Async {
-		go c.sendEvent(&e, msg)
+		go c.sendToProvider(&e, msg)
 		return nil
 	}
 
-	return c.sendEvent(&e, msg)
+	return c.sendToProvider(&e, msg)
 }
 
 // getDefaultLogger returns a sensible default logger using
@@ -393,4 +398,16 @@ func trace() string {
 	frames := runtime.CallersFrames(pc[:n])
 	frame, _ := frames.Next()
 	return fmt.Sprintf("%s:L%d", frame.Function, frame.Line)
+}
+
+// setHostName sets the global hostname once.
+func setHostName() {
+	hostnameOnce.Do(func() {
+		h, err := os.Hostname()
+		if err != nil {
+			log.Println("WARN: unable to fetch hostname")
+		}
+
+		hostname = h
+	})
 }
