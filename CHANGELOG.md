@@ -1,3 +1,9 @@
+## [1.1.0](https://github.com/michaeldelorenzo/x/compare/v1.0.0...v1.1.0) (2025-10-25)
+
+### Features
+
+* Add multi-provider support to xlog package ([#3](https://github.com/michaeldelorenzo/x/issues/3)) ([9290920](https://github.com/michaeldelorenzo/x/commit/9290920f438808afd340d8f13edb3c46ff3d51d0))
+
 ## 1.0.0 (2025-10-21)
 
 ### ⚠ BREAKING CHANGES
