@@ -1,3 +1,9 @@
+## [1.1.1](https://github.com/michaeldelorenzo/x/compare/v1.1.0...v1.1.1) (2026-03-19)
+
+### Bug Fixes
+
+* **deps:** bump google.golang.org/grpc from 1.76.0 to 1.79.3 ([#4](https://github.com/michaeldelorenzo/x/issues/4)) ([cd192d8](https://github.com/michaeldelorenzo/x/commit/cd192d8c9884d6e2ad9f6dbb57a1d07ebb6139ce))
+
 ## [1.1.0](https://github.com/michaeldelorenzo/x/compare/v1.0.0...v1.1.0) (2025-10-25)
 
 ### Features
