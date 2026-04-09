@@ -1,3 +1,9 @@
+## [1.1.2](https://github.com/michaeldelorenzo/x/compare/v1.1.1...v1.1.2) (2026-04-09)
+
+### Bug Fixes
+
+* use entry.Message for Sentry event titles and harden provider reliability ([#6](https://github.com/michaeldelorenzo/x/issues/6)) ([a0e354d](https://github.com/michaeldelorenzo/x/commit/a0e354d44ca4decedc0209d54b74cfb2325b5243)), closes [#5](https://github.com/michaeldelorenzo/x/issues/5)
+
 ## [1.1.1](https://github.com/michaeldelorenzo/x/compare/v1.1.0...v1.1.1) (2026-03-19)
 
 ### Bug Fixes
