@@ -1,6 +1,7 @@
 package sentry
 
 import (
+	"errors"
 	"log"
 	"sync"
 
@@ -24,8 +25,6 @@ type Provider struct {
 
 // NewProvider creates a new Sentry log provider
 func NewProvider(conf *Config) *Provider {
-	var hub *sentry.Hub
-
 	initOnce.Do(func() {
 		err := sentry.Init(sentry.ClientOptions{
 			Dsn:         conf.DSN,
@@ -37,9 +36,12 @@ func NewProvider(conf *Config) *Provider {
 		if err != nil {
 			log.Println("WARN: error initializing Sentry client:", err)
 		}
-
-		hub = sentry.CurrentHub()
 	})
+
+	hub := sentry.CurrentHub()
+	if hub.Client() == nil {
+		hub = nil
+	}
 
 	eventLevels := conf.EventLevels
 	if eventLevels == nil {
@@ -67,17 +69,24 @@ func NewProvider(conf *Config) *Provider {
 
 // SendLog sends a log entry to Sentry
 func (p *Provider) SendLog(entry zapcore.Entry, message string) error {
+	if p.hub == nil {
+		return errors.New("sentry provider: hub is nil, provider not properly initialized")
+	}
+
 	sentryLevel := zapLevelToSentry(entry.Level)
 
 	// Check if this should be an Event (creates an issue in Sentry)
 	if p.shouldSendAsEvent(entry.Level) {
 		event := sentry.NewEvent()
 		event.Level = sentryLevel
-		event.Message = message
+		event.Message = entry.Message
 		event.Logger = entry.LoggerName
 		event.Timestamp = entry.Time
+		event.Extra["log_json"] = message
 
-		p.hub.CaptureEvent(event)
+		if p.hub.CaptureEvent(event) == nil {
+			return errors.New("sentry provider: event was discarded (client not configured, rate-limited, or filtered by BeforeSend)")
+		}
 	}
 
 	// Send as breadcrumb (structured log data that attaches to future events)
