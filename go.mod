@@ -15,7 +15,7 @@ require (
 	github.com/pariz/gountries v0.1.6
 	github.com/pkg/errors v0.9.1
 	github.com/stretchr/testify v1.11.1
-	go.mongodb.org/mongo-driver v1.17.4
+	go.mongodb.org/mongo-driver v1.17.7
 	go.uber.org/zap v1.27.0
 	golang.org/x/exp v0.0.0-20251017212417-90e834f514db
 )
