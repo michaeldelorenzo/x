@@ -6,7 +6,7 @@ require golang.org/x/text v0.37.0 // indirect
 
 require (
 	github.com/DATA-DOG/go-sqlmock v1.5.2
-	github.com/getsentry/sentry-go v0.30.0
+	github.com/getsentry/sentry-go v0.48.0
 	github.com/jmoiron/sqlx v1.4.0
 	github.com/lib/pq v1.10.9
 	github.com/newrelic/go-agent/v3 v3.41.0
@@ -21,8 +21,8 @@ require (
 )
 
 require (
-	github.com/davecgh/go-spew v1.1.1 // indirect
-	github.com/pmezard/go-difflib v1.0.0 // indirect
+	github.com/davecgh/go-spew v1.1.2-0.20180830191138-d8f796af33cc // indirect
+	github.com/pmezard/go-difflib v1.0.1-0.20181226105442-5d4384ee4fb2 // indirect
 	go.uber.org/multierr v1.11.0 // indirect
 	golang.org/x/net v0.55.0 // indirect
 	golang.org/x/sys v0.45.0 // indirect

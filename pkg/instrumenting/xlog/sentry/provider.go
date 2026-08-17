@@ -82,7 +82,11 @@ func (p *Provider) SendLog(entry zapcore.Entry, message string) error {
 		event.Message = entry.Message
 		event.Logger = entry.LoggerName
 		event.Timestamp = entry.Time
-		event.Extra["log_json"] = message
+		// Structured payload rides on Contexts, not Extra: Event.Extra was
+		// removed in sentry-go v0.46.0. Scope attributes are the successor for
+		// logs and metrics, but Scope.ApplyToEvent never copies them onto an
+		// event, so a context is what actually surfaces on the issue.
+		event.Contexts["log"] = sentry.Context{"log_json": message}
 
 		if p.hub.CaptureEvent(event) == nil {
 			return errors.New("sentry provider: event was discarded (client not configured, rate-limited, or filtered by BeforeSend)")
