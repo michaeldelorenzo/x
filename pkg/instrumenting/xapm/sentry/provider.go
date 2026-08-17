@@ -35,7 +35,10 @@ func (p *Provider) StartTransaction(name string) types.Transaction {
 func (p *Provider) RecordCustomEvent(eventType string, params map[string]interface{}) {
 	event := sentry.NewEvent()
 	event.Message = eventType
-	event.Extra = params
+	// sentry-go removed Event.Extra (the legacy "Additional Data" field) in
+	// favour of structured contexts. sentry.Context is itself a
+	// map[string]interface{}, so the params map carries over unchanged.
+	event.Contexts["extra"] = params
 	event.Level = sentry.LevelInfo
 
 	p.hub.CaptureEvent(event)

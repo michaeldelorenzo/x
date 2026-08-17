@@ -82,7 +82,10 @@ func (p *Provider) SendLog(entry zapcore.Entry, message string) error {
 		event.Message = entry.Message
 		event.Logger = entry.LoggerName
 		event.Timestamp = entry.Time
-		event.Extra["log_json"] = message
+		// sentry-go removed Event.Extra (the legacy "Additional Data" field) in
+		// favour of structured contexts. sentry.NewEvent initialises Contexts,
+		// so this index assignment is safe without a nil check.
+		event.Contexts["extra"] = sentry.Context{"log_json": message}
 
 		if p.hub.CaptureEvent(event) == nil {
 			return errors.New("sentry provider: event was discarded (client not configured, rate-limited, or filtered by BeforeSend)")
