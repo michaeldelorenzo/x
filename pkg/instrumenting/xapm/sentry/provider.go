@@ -35,7 +35,11 @@ func (p *Provider) StartTransaction(name string) types.Transaction {
 func (p *Provider) RecordCustomEvent(eventType string, params map[string]interface{}) {
 	event := sentry.NewEvent()
 	event.Message = eventType
-	event.Extra = params
+	// Namespaced under eventType so each custom event type gets its own card
+	// in Sentry. Replaces Event.Extra, removed in sentry-go v0.46.0; scope
+	// attributes are the successor for logs and metrics, but they are not
+	// applied to events, so a context is what actually surfaces here.
+	event.Contexts[eventType] = sentry.Context(params)
 	event.Level = sentry.LevelInfo
 
 	p.hub.CaptureEvent(event)
