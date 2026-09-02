@@ -1,3 +1,10 @@
+## [1.1.6](https://github.com/michaeldelorenzo/x/compare/v1.1.5...v1.1.6) (2026-09-02)
+
+### Bug Fixes
+
+* **deps:** bump google.golang.org/grpc from 1.82.1 to 1.83.1 ([#11](https://github.com/michaeldelorenzo/x/issues/11)) ([ac349ee](https://github.com/michaeldelorenzo/x/commit/ac349ee840e07d7930d810580e814d98be87d70a))
+* pin conventional-changelog-conventionalcommits version in release workflow ([#12](https://github.com/michaeldelorenzo/x/issues/12)) ([1961c13](https://github.com/michaeldelorenzo/x/commit/1961c136005826da4adf0690f70ac5f9d3a61845)), closes [#1926](https://github.com/michaeldelorenzo/x/issues/1926)
+
 ## [1.1.5](https://github.com/michaeldelorenzo/x/compare/v1.1.4...v1.1.5) (2026-08-18)
 
 ## [1.1.4](https://github.com/michaeldelorenzo/x/compare/v1.1.3...v1.1.4) (2026-07-25)
