@@ -29,7 +29,12 @@ jobs:
           npm install -g @semantic-release/changelog
           npm install -g @semantic-release/git
           npm install -g @semantic-release/github
-          npm install -g conventional-changelog-conventionalcommits
+          # Pinned to the last 9.x release: 10.x requires
+          # conventional-changelog-writer@9+, but semantic-release@25's
+          # bundled @semantic-release/release-notes-generator still pins
+          # conventional-changelog-writer@^8, so an unpinned install here
+          # breaks generateNotes with "Missing helper".
+          npm install -g conventional-changelog-conventionalcommits@9.3.1
 
       - name: Create Release
         env:
