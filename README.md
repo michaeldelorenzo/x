@@ -3,6 +3,7 @@
 [![Tests](https://github.com/michaeldelorenzo/x/actions/workflows/tests.yml/badge.svg)](https://github.com/michaeldelorenzo/x/actions/workflows/tests.yml/badge.svg)
 [![Release Status](https://github.com/michaeldelorenzo/x/actions/workflows/release.yml/badge.svg)](https://github.com/michaeldelorenzo/x/releases)
 [![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/semantic-release/semantic-release)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](./LICENSE)
 
 Sub-repository of packages to be leveraged by other Go-based applications and services.
 
@@ -37,17 +38,6 @@ To get the latest package repository change use @latest.
 $ go get github.com/michaeldelorenzo/x@latest
 ```
 
-### Installing from Private Repositories
+## License
 
-#### Github Configuration
-
-```
-$ git config --global url."git@github.com:".insteadOf "https://github.com/"
-```
-
-#### `GOPRIVATE`
-Set the `GOPRIVATE` environment variable.
-
-```
-$ export GOPRIVATE=github.com/michaeldelorenzo/*
-```
+This project is licensed under the [MIT License](./LICENSE).
